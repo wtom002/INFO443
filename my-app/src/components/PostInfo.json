@@ -1,0 +1,7 @@
+[
+    {"username": "FitFrenzy", "image": "./img/mileRun.jpeg", "title": "Mile Run", "tag1": "Cardio", "tag2": "Steady State", "description":"Running workout focused on endurance, speed, and movement."},
+    {"username": "Fit", "image": "./img/cycle.jpeg", "title": "Cycle Sprint", "tag1": "Cardio", "tag2": "Legs", "description":"Cycling workout focused on interval training and high-intensity."},
+    {"username": "BestInfluencer", "image": "./img/rowing.jpeg", "title": "Row to Fitness", "tag1": "Cardio", "tag2": "High Intensity", "description":"Rowing workout focused on full-body conditioning and endurance."},
+    {"username": "GymGoddess", "image": "./img/jumpRope.jpeg", "title": "Jump Rope Challenge", "tag1": "Cardio", "tag2": "Steady State", "description":"Jumping rope workout focused on improving coordination and endurance."},
+    {"username": "FitnessGuru", "image": "./img/swim.jpeg", "title": "Lap Swim Challenge", "tag1": "Cardio", "tag2": "High Intensity", "description":"Swimming workout focused on improving endurance and overall fitness."}
+]
