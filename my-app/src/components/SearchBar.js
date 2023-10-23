@@ -50,24 +50,105 @@ import { getDatabase, ref, child, get } from "firebase/database";
         
 //     }
 // }
-let sortedArray = [];
-let oldArray = [];
-export const SearchBar = (props) => {
-    useEffect(() => {
-        const dbRef = ref(getDatabase());
-        get(child(dbRef, props.category)).then((snapshot) => {
-            const Snapshot = snapshot.val();
-            const SnapshotKeys = Object.keys(Snapshot);
-            const SnapshotArray = SnapshotKeys.map((key) => {
-                const singlePostCopy = {...Snapshot[key]};
-                singlePostCopy.key = key;
-                return singlePostCopy;
-            });
-            oldArray = SnapshotArray;
-        });
-    }, []);
+// let sortedArray = [];
+// let oldArray = [];
+// export const SearchBar = (props) => {
+//     useEffect(() => {
+//         const dbRef = ref(getDatabase());
+//         get(child(dbRef, props.category)).then((snapshot) => {
+//             const Snapshot = snapshot.val();
+//             const SnapshotKeys = Object.keys(Snapshot);
+//             const SnapshotArray = SnapshotKeys.map((key) => {
+//                 const singlePostCopy = {...Snapshot[key]};
+//                 singlePostCopy.key = key;
+//                 return singlePostCopy;
+//             });
+//             oldArray = SnapshotArray;
+//         });
+//     }, []);
 
+//     const [queryText, setQueryText] = useState('');
+
+//     const handleChange = (event) => {
+//         setQueryText(event.target.value);
+//     };
+
+//     const handleSubmit = (event) => {
+//         event.preventDefault();
+//         const query = encodeURIComponent(queryText);
+//         searchBarSort(oldArray, query);
+//     };
+
+//     function searchBarSort(array, searchInput){
+        
+//         if (searchInput == "") {
+            
+//             props.setArray(oldArray);
+            
+//         } else {
+//             for (let i = 0; i< array.length; i++) {
+//                 if (array[i].postTitle == searchInput || array[i].postTitle.includes(searchInput)) {
+//                     sortedArray.push(array[i]);
+//                 }
+//             }
+//             props.setArray(sortedArray);
+//         }
+//         console.log(sortedArray);
+//         console.log(array);
+//         console.log(oldArray);
+//         console.log(searchInput);
+//         //setQueryText('');
+//         sortedArray = [];
+//     }
+
+//     return (
+//         <Form id="cover" aria-label="Search Bar" onSubmit={handleSubmit}>
+//             <Form.Group className="search-bar">
+//                     <Form.Control 
+//                     aria-label="Search Bar" 
+//                     className="form-input" 
+//                     type="text" 
+//                     placeholder="Type a workout ... "  
+//                     value={queryText}
+//                     onChange={handleChange}
+//                     >
+//                     </Form.Control>
+//                 <Button aria-label="Submit" type="submit"><span className="material-icons">search</span></Button>
+//             </Form.Group>
+//         </Form>
+//     );
+
+// }
+
+
+
+// export default SearchBar;
+export const SearchBar = (props) => {
     const [queryText, setQueryText] = useState('');
+    const [sortedArray, setSortedArray] = useState([]);
+    const [oldArray, setOldArray] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const dbRef = ref(getDatabase());
+                const snapshot = await get(child(dbRef, props.category));
+                const Snapshot = snapshot.val();
+                if (Snapshot) {
+                    const SnapshotKeys = Object.keys(Snapshot);
+                    const SnapshotArray = SnapshotKeys.map((key) => {
+                        const singlePostCopy = { ...Snapshot[key], key };
+                        return singlePostCopy;
+                    });
+                    setOldArray(SnapshotArray);
+                }
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+
+        fetchData();
+    }, [props.category]);
 
     const handleChange = (event) => {
         setQueryText(event.target.value);
@@ -79,47 +160,34 @@ export const SearchBar = (props) => {
         searchBarSort(oldArray, query);
     };
 
-    function searchBarSort(array, searchInput){
-        
-        if (searchInput == "") {
-            
+    function searchBarSort(array, searchInput) {
+        if (searchInput === "") {
             props.setArray(oldArray);
-            
         } else {
-            for (let i = 0; i< array.length; i++) {
-                if (array[i].postTitle == searchInput || array[i].postTitle.includes(searchInput)) {
-                    sortedArray.push(array[i]);
-                }
-            }
+            const sortedArray = array.filter((item) =>
+                item.postTitle.toLowerCase().includes(searchInput.toLowerCase())
+            );
             props.setArray(sortedArray);
         }
-        console.log(sortedArray);
-        console.log(array);
-        console.log(oldArray);
-        console.log(searchInput);
-        //setQueryText('');
-        sortedArray = [];
     }
 
     return (
-        <Form id="cover" aria-label="Search Bar" onSubmit={handleSubmit}>
-            <Form.Group className="search-bar">
-                    <Form.Control 
-                    aria-label="Search Bar" 
-                    className="form-input" 
-                    type="text" 
-                    placeholder="Type a workout ... "  
+        <form id="cover" aria-label="Search Bar" onSubmit={handleSubmit}>
+            <div className="input-group mb-3">
+                <input
+                    aria-label="Search Bar"
+                    className="form-control"
+                    type="text"
+                    placeholder="Type a workout ..."
                     value={queryText}
                     onChange={handleChange}
-                    >
-                    </Form.Control>
-                <Button aria-label="Submit" type="submit"><span className="material-icons">search</span></Button>
-            </Form.Group>
-        </Form>
+                />
+                <button className="btn btn-primary" type="submit">
+                    <span className="material-icons">search</span>
+                </button>
+            </div>
+        </form>
     );
-
-}
-
-
+};
 
 export default SearchBar;
