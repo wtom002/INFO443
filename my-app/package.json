@@ -38,7 +38,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.22.15",
     "react-router-dom": "^6.8.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "test.js",
