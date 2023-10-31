@@ -2,7 +2,7 @@ import {React, useState, useEffect} from "react";
 import Button from 'react-bootstrap/Button';
 import { FormControl } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, child, get } from './firebase';
 // set the state of the card list
 // export the state to the card list component
 // onSearch(); when the 
