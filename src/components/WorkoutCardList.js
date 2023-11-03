@@ -82,7 +82,7 @@ function WorkoutCard(props) {
     )
 }
 
-export function WorkoutCardList(props) {
+export default function WorkoutCardList(props) {
     
     //I want an array of elements, but need to add a key with a unique value
     const componentArray =  props.renderedCardsArray.map((jobObj) => {
@@ -97,13 +97,13 @@ export function WorkoutCardList(props) {
             description={jobObj.content}
             key={jobObj.username}
             /> 
-    )
-    return element; //don't forget to return!
-})
+        )
+        return <div >{element}</div>; //don't forget to return!
+    })
 
-return (
-    <div className="card-container">
-        {componentArray}
-    </div>
-)
+    return (
+        <div className="card-container" aria-label="Workout Card List">
+            {componentArray}
+        </div>
+    )
 }

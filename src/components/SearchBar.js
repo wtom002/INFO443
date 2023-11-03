@@ -175,7 +175,7 @@ export const SearchBar = (props) => {
         <form id="cover" aria-label="Search Bar" onSubmit={handleSubmit}>
             <div className="input-group mb-3">
                 <input
-                    aria-label="Search Bar"
+                    aria-label="Search Bar Input"
                     className="form-control"
                     type="text"
                     placeholder="Type a workout ..."

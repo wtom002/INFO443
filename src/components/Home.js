@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function Home() {
   return (
-    <div>
+    <div aria-label= "Home Page">
         <header>
             <div className="landing-headings">
             <h1>MOTION.</h1>
