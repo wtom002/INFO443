@@ -11,13 +11,6 @@ import Article from "./Article.js";
 import {db} from './firebase.js';
 // import the function that updates the 
 
-export function handleScroll() {
-  window.scroll({
-    top: document.body.offsetHeight,
-    left: 0, 
-    behavior: 'smooth',
-  });
-}
 
 export default function App() {
 

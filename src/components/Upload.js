@@ -193,12 +193,13 @@ export default function Upload() {
         <Form.Group>
           <Form.Label className="upload-labels">Upload Image:</Form.Label>
           <Form.Group className="mb-4 d-flex justify-content-center">
-              <img id="preview-image" src='/img/photoupload-uploadpg.jpg' alt="image file preview"></img>
+              <img aria-label="Photo Preview" id="preview-image" src='/img/photoupload-uploadpg.jpg' alt="image file preview"></img>
           </Form.Group>
         </Form.Group>
 
+        {/* controlId="formFile" */}
         {/* Choose File */}
-         <Form.Group controlId="formFile" className="mb-3">
+         <Form.Group  className="mb-3">
          <FormLabel htmlFor="file_input" className="upload-labels">Choose an image to upload:</FormLabel>
           <input aria-label="File Input" className="form-control lgtext" id="file_input" type="file" accept="image/*"
             onChange={handleFileInputChange}/>

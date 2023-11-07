@@ -1,8 +1,15 @@
 import React from "react";
-import { handleScroll } from "./App";
 import Button from 'react-bootstrap/Button';
 
-
+export function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
+  
+  
 export default function Home() {
   return (
     <div aria-label= "Home Page">

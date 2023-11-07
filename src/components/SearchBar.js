@@ -2,7 +2,7 @@ import {React, useState, useEffect} from "react";
 import Button from 'react-bootstrap/Button';
 import { FormControl } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import { getDatabase, ref, child, get } from './firebase';
+import { getDatabase, ref, child, get } from 'firebase/database';
 // set the state of the card list
 // export the state to the card list component
 // onSearch(); when the 
@@ -119,7 +119,27 @@ import { getDatabase, ref, child, get } from './firebase';
 //     );
 
 // }
+// export function searchBarSort(array, searchInput) {
+//     if (searchInput === "") {
+//         props.setArray(oldArray);
+//     } else {
+//         const sortedArray = array.filter((item) =>
+//             item.postTitle.toLowerCase().includes(searchInput.toLowerCase())
+//         );
+//         props.setArray(sortedArray);
+//     }
+// }
 
+export function searchBarSort(array, searchInput) {
+    if (searchInput === "") {
+      return array;
+    } else {
+      const sortedArray = array.filter((item) =>
+        item.postTitle.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      return sortedArray;
+    }
+  }
 
 
 // export default SearchBar;
@@ -160,16 +180,6 @@ export const SearchBar = (props) => {
         searchBarSort(oldArray, query);
     };
 
-    function searchBarSort(array, searchInput) {
-        if (searchInput === "") {
-            props.setArray(oldArray);
-        } else {
-            const sortedArray = array.filter((item) =>
-                item.postTitle.toLowerCase().includes(searchInput.toLowerCase())
-            );
-            props.setArray(sortedArray);
-        }
-    }
 
     return (
         <form id="cover" aria-label="Search Bar" onSubmit={handleSubmit}>
