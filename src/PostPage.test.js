@@ -20,16 +20,27 @@ describe('Post Page', () => {
     });
 
     test("renders the WorkoutCardList component", () => {
-        render(<WorkoutCardList/>)
-        const workoutCardListElement = screen.getByLabelText("Workout Cards");
+        const renderedCardsArray = [];
+        render(<WorkoutCardList renderedCardsArray={renderedCardsArray} />);
+        const workoutCardListElement = screen.getByLabelText("Workout Card List");
         expect(workoutCardListElement).toBeInTheDocument();
-    });
-    
-    test("initial weightSnapshotArray state is empty", () => {
-        render(<WorkoutCardList />);
-      
-        const weightSnapshotArray = screen.getByLabelText("Workout Cards").renderedCardsArray;
-        expect(weightSnapshotArray).toEqual([]);
+      });
+
+      test('renders all workout cards initially', () => {
+        const sampleWorkoutData = [
+          {
+            key: '1',
+            title: 'Workout 1',
+          },
+          {
+            key: '2',
+            title: 'Workout 2',
+          },
+        ];
+
+        render(<Weight />);
+        const workoutCardElements = screen.getAllByTestId('Workout Card List');
+        expect(workoutCardElements.length).toBe(sampleWorkoutData.length);
     });
 });
 //   These tests cover the following:

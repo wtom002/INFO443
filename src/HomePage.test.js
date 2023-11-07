@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import {React} from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen} from '@testing-library/react';
 import {handleScroll} from './components/Home.js';
 import Home from './components/Home.js';
 import * as App from "./components/App";
@@ -27,5 +27,11 @@ describe('Home', () => {
           left: 0,
           behavior: 'smooth',
         });
-      });
+    });
+
+    test('renders the "About Us" section', () => {
+        render(<Home />);
+        const aboutUsSection = screen.getByText('About Us');
+        expect(aboutUsSection).toBeInTheDocument();
+    });
 })
