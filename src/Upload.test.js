@@ -36,20 +36,16 @@ describe('Upload', () => {
         expect(subcategorySelect.value).toBe('High Intensity');
     });
 
-    // test('handles file input change', async () => {
-    //     render(<Upload />);
-    //     const fileInput = screen.getByLabelText('File Input');
-    //     const previewImage = screen.getByLabelText('Photo Preview');
-    //     const testFile = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
+    test('handles file input change', () => {
+        render(<Upload />);
+        const fileInput = screen.getByLabelText('File Input');
+        const previewImage = screen.getByLabelText('Photo Preview');
+        const testFile = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
       
-    //     fireEvent.change(fileInput, { target: { files: [testFile] } });
-      
-    //     // Wait for the component to update after the file change
-    //     await waitFor(() => {
-    //         expect(previewImage).toBeInTheDocument();
-        
-    //     });
-    //     expect(previewImage.getAttribute('src')).toContain('test.jpg');
-    //   }); 
+        fireEvent.change(fileInput, { target: { files: [testFile] } });
+        setTimeout(() => {
+          expect(previewImage.src).toContain('test.jpg');
+        }, 0);
+      });
 })
 

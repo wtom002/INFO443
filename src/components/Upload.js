@@ -8,18 +8,11 @@ import {ref,push,child,update} from "firebase/database";
 import {uploadBytes, ref as sRef } from "firebase/storage";
 
 
-// Currently, our Upload page which is one of our main features is fully working! All of the user input/data is stored on Firebase.
-// We will use this data in WorkoutCardList which will support our second main feature, the search bar.
 function uploadImage() {
     const imageInput = document.getElementById('file_input');
     const file = imageInput.files[0];
     const storageRef = sRef(storage, `images/${file.name}`);
-    //const fileName = file.name;
-    //const storageRef = sRef(storage);
-    // storageRef.child(fileName).put(file)
-    // .then((snapshot) => {
-    // console.log('Uploaded a blob or file!');
-    // });
+
     uploadBytes(storageRef, file).then((snapshot) => {
         console.log('Uploaded a blob or file!');
     });
@@ -73,17 +66,15 @@ export default function Upload() {
     const reader = new FileReader();
 
     reader.onloadend = function() {
-      const previewImage = document.getElementById('preview-image');
-      previewImage.src = reader.result;
+        setPreviewImageSrc(reader.result);
     }
 
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      const previewImage = document.getElementById('preview-image');
-      previewImage.src = '/img/photoupload-uploadpg.jpg';
+        setPreviewImageSrc('/img/photoupload-uploadpg.jpg');
     }
-    setFile(event.target.files[0]);
+    setFile(file);
   }
 
   const [username, setUsername] = useState("");
@@ -91,6 +82,8 @@ export default function Upload() {
   const [content, setContent] = useState("");
   const [fileUpload, setFile] = useState("");
   const [picturePath, setPicturePath] = useState("");
+  const [previewImageSrc, setPreviewImageSrc] = useState('/img/photoupload-uploadpg.jpg');
+
 
   const handleInputChange = (e) => {
     const {id , value} = e.target;
@@ -135,9 +128,7 @@ export default function Upload() {
     setTitle('');
     setContent('');
     setFile('');
-    //setPicturePath('');
-    const previewImage = document.getElementById("preview-image");
-    previewImage.src = "/img/photoupload-uploadpg.jpg";
+    setPreviewImageSrc('/img/photoupload-uploadpg.jpg');
     document.getElementById("content_input").value = "";
     return update(ref(db, obj.category), updates);
 }
@@ -193,7 +184,7 @@ export default function Upload() {
         <Form.Group>
           <Form.Label className="upload-labels">Upload Image:</Form.Label>
           <Form.Group className="mb-4 d-flex justify-content-center">
-              <img aria-label="Photo Preview" id="preview-image" src='/img/photoupload-uploadpg.jpg' alt="image file preview"></img>
+            <img aria-label="Photo Preview" id="preview-image" src={previewImageSrc}></img>
           </Form.Group>
         </Form.Group>
 
