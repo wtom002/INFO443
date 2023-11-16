@@ -3,7 +3,6 @@ import {SearchBar} from "./SearchBar";
 import WorkoutCardList from "./WorkoutCardList";
 import { getDatabase, ref, child, get } from "firebase/database";
 
-// We will add a filter where the WorkoutCardList will only show cards that have Cardio as the first tag. 
 export default function Weight() { 
     const [weightSnapshotArray, setWeightSnapshotArray] = useState([]);
 

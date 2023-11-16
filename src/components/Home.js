@@ -9,7 +9,6 @@ export function handleScroll() {
     });
   }
   
-  
 export default function Home() {
   return (
     <div aria-label= "Home Page">

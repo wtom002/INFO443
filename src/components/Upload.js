@@ -4,7 +4,7 @@ import { FormLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { FormControl } from "react-bootstrap";
 import {db, storage} from "./firebase.js";
-import {ref,push,child,update} from "firebase/database";
+import {ref,update} from "firebase/database";
 import {uploadBytes, ref as sRef } from "firebase/storage";
 
 
@@ -87,8 +87,6 @@ export default function Upload() {
 
   const handleInputChange = (e) => {
     const {id , value} = e.target;
-
-    //Update the state with the new value
       if(id === "username"){
         setUsername(value);
       }
@@ -104,9 +102,6 @@ export default function Upload() {
   }
 
   const handleSubmit = (e) =>{
-    // e.preventDefault();
-    //|| fileUpload.trim() === ""
-    //Check if the fields are filled in
     if (username.trim() === "" || title.trim() === "" || content.trim() === "" ) {
       alert("Please fill out all the required fields.");
       return;
@@ -121,7 +116,6 @@ export default function Upload() {
       subCategory: subCategory,
       picturePath: `images/${file.name}`
     }
-    //const newPostKey = push(child(ref(db), "posts")).key;
     const updates = {};
     updates['/' + obj.postTitle] = obj
     setUsername('');
@@ -144,7 +138,6 @@ export default function Upload() {
   return(
     <main className="upload_main d-flex justify-content-center align-content-center">
       <Form className="upload-inputs" aria-label="Upload Form">
-        {/* Username */}
         <Form.Group className="upload-input-sections">
           <Form.Label className="upload-labels">Username:</Form.Label>
           <Form.Control aria-label="Username" className="form-control smtext" id="username" placeholder="Username"
@@ -153,7 +146,6 @@ export default function Upload() {
             </Form.Control>
         </Form.Group>
 
-        {/* Upload Title */}
         <Form.Group className="upload-input-sections">
           <Form.Label className="upload-labels">Title:</Form.Label>
           <Form.Control aria-label="Title" className="form-control smtext" id="title" placeholder="Title"
@@ -162,7 +154,6 @@ export default function Upload() {
           </Form.Control>
         </Form.Group>
 
-        {/* First Tag Selection */}
         <Form.Group className="upload-input-sections">
           <Form.Label className="upload-labels">Tag:</Form.Label>
             <Form.Select aria-label="First Tag" className="form-control dropdown" name="categories" id="categories"
@@ -171,7 +162,6 @@ export default function Upload() {
             </Form.Select>
         </Form.Group>
 
-        {/* Second Tag Selection */}
         <Form.Group className="upload-input-sections">
           <Form.Label className="upload-labels" >Tag 2:</Form.Label>
           <Form.Select aria-label="Second Tag" className="form-control dropdown" name="Subcategories" id="Subcategories"
@@ -180,7 +170,6 @@ export default function Upload() {
           </Form.Select>
         </Form.Group>
 
-        {/* Upload Image */}
         <Form.Group>
           <Form.Label className="upload-labels">Upload Image:</Form.Label>
           <Form.Group className="mb-4 d-flex justify-content-center">
@@ -188,16 +177,12 @@ export default function Upload() {
           </Form.Group>
         </Form.Group>
 
-        {/* controlId="formFile" */}
-        {/* Choose File */}
          <Form.Group  className="mb-3">
          <FormLabel htmlFor="file_input" className="upload-labels">Choose an image to upload:</FormLabel>
           <input aria-label="File Input" className="form-control lgtext" id="file_input" type="file" accept="image/*"
             onChange={handleFileInputChange}/>
         </Form.Group>
-        {/*<ImageUploadForm/>*/}
 
-        {/* Post Content */}
         <Form.Group className="upload-input-sections">
           <Form.Label className="upload-labels">Post Content:</Form.Label>
           <Form.Control aria-label="Post Content" className="form-control lgtext" id="content_input" placeholder="Enter Text Here"
@@ -207,11 +192,7 @@ export default function Upload() {
         </Form.Group>
 
         <Button aria-label="Submit" className="btn btn-dark submitbutton" type="button" onClick={()=> {submitResult();}}>Submit</Button>
-
       </Form>
-
     </main>
-
-  // Add confirmation message/alert? when user click submit
   );
 }

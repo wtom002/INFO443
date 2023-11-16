@@ -8,16 +8,9 @@ import Flexibility from "./Flexibility.js";
 import Upload from "./Upload.js";
 import Footer from "./Footer.js";
 import Article from "./Article.js";
-import {db} from './firebase.js';
-// import the function that updates the 
 
 
 export default function App() {
-
-//function that maps all existing cards to pages from db
-// everything in db is initial state
-// search bar is the function that updates state
-
   return(
     <div className="font-link">
       <NavBar aria-label="NavBar"/>
@@ -29,7 +22,7 @@ export default function App() {
         <Route path="/Upload" element={<Upload />} aria-label="Upload"/>
         <Route path="/Article" element={<Article />} aria-label="Article"/>
       </Routes>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

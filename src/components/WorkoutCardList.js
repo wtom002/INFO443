@@ -1,28 +1,17 @@
-//import PostInfo from './PostInfo.json';
-//import Article from './Article';
 import {React, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import {storage} from "./firebase.js";
 import {ref, getDownloadURL} from "firebase/storage";
 import 'firebase/storage';
-//import {getDatabase, ref, child, get} from "firebase/database";
 
-// Right now, we are using WorkoutCard and WorkoutCardList with a temporary json file to test out all of the functions. However our plan
-// for the final draft/next step is to render the user information from Firebase to create these cards. This should be a easy step as
-// we just have to grab the data and use it to render the cards which will support our second main feature, the SearchBar. 
 function ImageComponent(props) {
     const [imageUrl, setImageUrl] = useState('');
   
     useEffect(() => {
-      // Create a reference to the image in Firebase Storage
       const storageRef = ref(storage, props.picturePath);
-  
-      // Download the image and get its URL
         getDownloadURL(storageRef)
         .then((url) => {
         setImageUrl(url);
-        // const img = document.getElementById('img');        
-        // img.setAttribute('src', url); 
       });
     }, [props.picturePath]);
   
@@ -36,26 +25,6 @@ function WorkoutCard(props) {
     const tag1 = props.tag1;
     const tag2 = props.tag2;
     const description = props.description;
-
-    //firebase rtdb references
-    //const sRef = storage.ref({picturePath});
-   
-        //var storageRef = sRef(storage);
-        
-        // child(storageRef, {picturePath}).getDownloadURL().then(function(url) {
-        //     var test = url;
-        //     alert(url);
-        //     document.querySelector('img').src = test;
-        // });
-        
-        // const storageRef = sRef(storage);    
-        // storageRef.child(picturePath).getDownloadURL()      
-        // .then((url) => {        
-        //     const img = document.getElementById('img');        
-        //     img.setAttribute('src', url); 
-        //     //document.querySelector('img').src = test;     
-        // })      
-
 
     return (
     
@@ -82,9 +51,7 @@ function WorkoutCard(props) {
     )
 }
 
-export default function WorkoutCardList(props) {
-    
-    //I want an array of elements, but need to add a key with a unique value
+export default function WorkoutCardList(props) {  
     const componentArray =  props.renderedCardsArray.map((jobObj) => {
     
         const element = (
@@ -98,7 +65,7 @@ export default function WorkoutCardList(props) {
             key={jobObj.username}
             /> 
         )
-        return <div >{element}</div>; //don't forget to return!
+        return <div >{element}</div>;
     })
 
     return (
