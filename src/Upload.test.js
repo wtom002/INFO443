@@ -1,12 +1,7 @@
 import '@testing-library/jest-dom';
-import {React, Router} from 'react';
-import SearchBar from './components/SearchBar.js';
-import {render, fireEvent, screen, waitFor } from '@testing-library/react';
-import NavBar from './components/Navbar.js';
+import {React} from 'react';
+import {render, fireEvent, screen } from '@testing-library/react';
 import Upload from './components/Upload.js';
-import WorkoutCardList from './components/WorkoutCardList.js';
-import Home from './components/Home.js';
-import { db, storage, ref, child, get } from './components/firebase.js';
 
 describe('Upload', () => {
 

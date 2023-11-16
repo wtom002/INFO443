@@ -1,9 +1,8 @@
 import '@testing-library/jest-dom';
-import {React, Router} from 'react';
+import {React} from 'react';
 import {render, screen   } from '@testing-library/react';
 import Weight from './components/Weight.js';
 import WorkoutCardList from './components/WorkoutCardList.js';
-import SearchBar from './components/SearchBar.js';
 
 describe('Post Page', () => {
   

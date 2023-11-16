@@ -1,12 +1,7 @@
 import '@testing-library/jest-dom';
-import {React, Router} from 'react';
+import {React} from 'react';
 import SearchBar from './components/SearchBar.js';
 import {render, fireEvent} from '@testing-library/react';
-import NavBar from './components/Navbar.js';
-import Upload from './components/Upload.js';
-import WorkoutCardList from './components/WorkoutCardList.js';
-import Home from './components/Home.js';
-import * as firebase from './components/firebase.js';
 import {searchBarSort} from './components/SearchBar.js';
 
 
@@ -40,6 +35,6 @@ describe('SearchBar', () => {
           { postTitle: 'Workout 1' },
           { postTitle: 'Workout 2' },
         ]);
-      });
+    });
 
 })

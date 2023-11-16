@@ -1,9 +1,7 @@
 import '@testing-library/jest-dom';
 import {React} from 'react';
 import { render, fireEvent, screen} from '@testing-library/react';
-import {handleScroll} from './components/Home.js';
 import Home from './components/Home.js';
-import * as App from "./components/App";
 
 
 
