@@ -20,7 +20,7 @@ With Motion, users can upload workouts and other users can search for the desire
    -  Description: a comprehensive mobile and web application development platform provided by Google. Offers a wide range of tools and services to help developers build high-quality apps, including cloud-based databases, authentication, hosting, and real-time data synchronization.
     - Characteristics: Offering real-time databases, authentication, cloud hosting, analytics, and a range of other services that facilitate the development of secure, scalable, and real-time mobile and web applications.
 
-<img  alt="INFO443 UML Component Diagram" src="https://github.com/wtom002/INFO443/assets/63918959/53fdce2a-7bd0-46c3-9f0e-0d884faebab5">
+<img alt="UML Component Diagram" src= "images/Com Diagram.png">
 
 ### Provide a walkthrough of the code's process flow (not the user flow!)
 The application initializes necessary dependencies, including Firebase for backend services and the necessary frontend libraries/frameworks for user interface development.
@@ -42,7 +42,7 @@ The application initializes necessary dependencies, including Firebase for backe
   - Real-time Database: Firebase real-time database stores workout data, ensuring that changes are instantly reflected across all connected clients. The database is queried for search results and updated with newly uploaded workouts.
   - Hosting: Firebase hosting serves the frontend application, providing a scalable and reliable hosting solution.
   - 
-<img alt="INFO443 UML Sequence Diagram" src="https://github.com/wtom002/INFO443/assets/63918959/7e122221-be34-44de-b12f-45444bbeadf4">
+<img alt="UML Sequence Diagram" src= "images/Sq Diagram.png">
 
 ### Architecture Assessment
 
@@ -72,65 +72,180 @@ The tests written were to test the basic functionality of the main components of
 1. Renders the Weight component with a title
 - Description: This test ensures that the Weight component is rendered, and it contains a title with the text "Weight."
 - Test Code:
+    ```
+    test("renders the Weight component with a title", () => {
+        render(<Weight />);
+        const titleElement = screen.getByText("Weight");
+        expect(titleElement).toBeInTheDocument();
+    });
 
+    ```
 2. Renders the SearchBar
 
 - Description: This test verifies that the Weight component renders the SearchBar component.
 - Test Code:
+    ```
+    test("renders the SearchBar", () => {
+        render(<Weight />);
+        const searchBarElement = screen.getByLabelText("Search Bar");
+        expect(searchBarElement).toBeInTheDocument();
+    });
 
+    ```
 
 3. Renders the WorkoutCardList component
 
 - Description: This test checks if the WorkoutCardList component is rendered with the specified renderedCardsArray prop.
 - Test Code:
-
+    ```
+    test("renders the WorkoutCardList component", () => {
+        const renderedCardsArray = [];
+        render(<WorkoutCardList renderedCardsArray={renderedCardsArray} />);
+        const workoutCardListElement = screen.getByLabelText("Workout Card List");
+        expect(workoutCardListElement).toBeInTheDocument();
+    });
+    ```
 
 **HomePage.test.js**
 
 1. Renders Home component
   - Description: This test ensures that the Home component is rendered, and it contains an element with the label "Home Page."
   - Test Code:
-
+    ```
+    test('renders Home component', () => {
+        const { getByLabelText } = render(<Home />);
+        const home = getByLabelText("Home Page");
+        expect(home).toBeInTheDocument();
+    });
+    ```
 2. Scroll button click scrolls down the page
   - Description: This test verifies that clicking the scroll button triggers a smooth scroll down the page. It uses the fireEvent function to simulate a button click and checks the window.scroll function is called with the expected parameters.
   - Test Code:
+    ```
+    test('scroll button click scrolls down the page', () => {
+        const { getByLabelText } = render(<Home />);
+        const scrollButton = getByLabelText('Scroll Down');
+        const scrollSpy = jest.spyOn(window, 'scroll');
 
+        fireEvent.click(scrollButton);
+
+        expect(scrollSpy).toHaveBeenCalledWith({
+        top: document.body.offsetHeight,
+        left: 0,
+        behavior: 'smooth',
+        });
+    });
+    ```
 3. Renders the "About Us" section
 - Description: This test checks if the Home component renders the "About Us" section.
 - Test Code:
-
+    ```
+    test('renders the "About Us" section', () => {
+        render(<Home />);
+        const aboutUsSection = screen.getByText('About Us');
+        expect(aboutUsSection).toBeInTheDocument();
+    });
+    ```
 **Upload.test.js**
 1. Renders Upload component
   - Description: This test ensures that the Upload component is rendered, and it contains an element with the label "Upload Form."
   - Test Code:
-
+    ```
+    test('renders Upload component', () => {
+        const { getByLabelText } = render(<Upload />);
+        const upload = getByLabelText("Upload Form");
+        expect(upload).toBeInTheDocument();
+    });
+    ```
 2. Handles form input changes
   - Description: This test checks if the Upload component handles changes in the input fields for the username and title. It uses the fireEvent function to simulate input changes and asserts that the input values are updated accordingly.
   - Test Code:
-  - 
+    ```
+    test('handles form input changes', () => {
+        render(<Upload />);
+        const usernameInput = screen.getByLabelText('Username');
+        const titleInput = screen.getByLabelText('Title');
+        fireEvent.change(usernameInput, { target: { value: 'TestUser' } });
+        fireEvent.change(titleInput, { target: { value: 'TestTitle' } });
+        expect(usernameInput.value).toBe('TestUser');
+        expect(titleInput.value).toBe('TestTitle');
+    });
+    ```
 3. Handles category and subcategory selection
   - Description: This test verifies that the Upload component correctly handles changes in the category and subcategory selection. It uses the fireEvent function to simulate changes and asserts that the selected values match the expected values.
   - Test Code:
-
+    ```
+    test('handles category and subcategory selection', () => {
+        render(<Upload />);
+        const categorySelect = screen.getByLabelText('First Tag');
+        const subcategorySelect = screen.getByLabelText('Second Tag');
+        fireEvent.change(categorySelect, { target: { value: 'Cardio' } });
+        fireEvent.change(subcategorySelect, { target: { value: 'High Intensity' } });
+        expect(categorySelect.value).toBe('Cardio');
+        expect(subcategorySelect.value).toBe('High Intensity');
+    });
+    ```
 4. Handles file input change
   - Description: This test checks if the Upload component correctly handles changes in the file input. It uses the fireEvent function to simulate a file input change and asserts that the preview image source is updated accordingly.
   - Test Code: 
-
+    ```
+    test('handles file input change', () => {
+        render(<Upload />);
+        const fileInput = screen.getByLabelText('File Input');
+        const previewImage = screen.getByLabelText('Photo Preview');
+        const testFile = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
+    
+        fireEvent.change(fileInput, { target: { files: [testFile] } });
+        setTimeout(() => {
+        expect(previewImage.src).toContain('test.jpg');
+        }, 0);
+    });
+    ```
 **Search.test.js**
 
 1. Renders SearchBar component
   - Description: This test ensures that the SearchBar component is rendered, and it contains an element with the label "Search Bar."
   - Test Code:
-
+    ```
+    test('renders SearchBar component', () => {
+        const { getByLabelText } = render(<SearchBar />);
+        const searchBar = getByLabelText("Search Bar");
+        expect(searchBar).toBeInTheDocument();
+    });
+    ```
 2. Should handle input change
   - Description: This test checks if the SearchBar component correctly handles changes in the input field. It uses the fireEvent function to simulate an input change and asserts that the input value is updated accordingly.
   - Test Code:
+    ```
+    test('should handle input change', () => {
+        const { getByLabelText } = render(<SearchBar category="example" />);
+        const searchBarInput = getByLabelText('Search Bar Input');
 
+        fireEvent.change(searchBarInput, { target: { value: 'test' } });
+
+        expect(searchBarInput.value).toBe('test');
+    });
+    ```
 
 3. Should filter the array correctly with searchBarSort
   - Description: This test verifies that the searchBarSort function correctly filters an array based on a search term. It uses a sample array and checks if the filtered result matches the expected output.
   - Test Code:
+    ```
+    test('should filter the array correctly with searchBarSort', () => {
+        const sampleArray = [
+        { postTitle: 'Workout 1' },
+        { postTitle: 'Workout 2' },
+        { postTitle: 'Exercise 1' },
+        ];
 
+        const resultArray = searchBarSort(sampleArray, 'workout');
+
+        expect(resultArray).toEqual([
+        { postTitle: 'Workout 1' },
+        { postTitle: 'Workout 2' },
+        ]);
+    });
+    ```
 
 ## Code Refactoring
 -  Refactoring for Code Smell #1 Long Functions:
